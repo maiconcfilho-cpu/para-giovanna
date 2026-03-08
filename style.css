@@ -1,0 +1,81 @@
+body {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #fff5f5;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #4a4a4a;
+    overflow: hidden;
+}
+
+.container {
+    text-align: center;
+    padding: 2rem;
+    max-width: 500px;
+    width: 90%;
+}
+
+.options-grid {
+    display: grid;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+button {
+    padding: 15px 25px;
+    border: 1px solid #ffb7b7;
+    background: white;
+    color: #d63384;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 1rem;
+}
+
+button:hover {
+    background: #ffb7b7;
+    color: white;
+    transform: translateY(-2px);
+}
+
+.hidden {
+    display: none;
+}
+
+.title {
+    color: #d63384;
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    animation: fadeIn 2s ease;
+}
+
+.message {
+    line-height: 1.6;
+    font-size: 1.2rem;
+    animation: fadeIn 3s ease;
+}
+
+/* Chuva de corações */
+.heart {
+    position: fixed;
+    top: -10px;
+    font-size: 20px;
+    user-select: none;
+    pointer-events: none;
+    z-index: 999;
+    animation: fall linear forwards;
+}
+
+@keyframes fall {
+    to {
+        transform: translateY(105vh) rotate(360deg);
+    }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}

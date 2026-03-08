@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Para Minha Mulher Maravilhosa</title>
+    <style>
+        body {
+            margin: 0; padding: 0; display: flex; justify-content: center;
+            align-items: center; min-height: 100vh; background-color: #fff5f5;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: #4a4a4a; overflow: hidden;
+        }
+        .container { text-align: center; padding: 2rem; max-width: 500px; width: 90%; z-index: 10; }
+        .options-grid { display: grid; gap: 15px; margin-top: 20px; }
+        button {
+            padding: 15px 25px; border: 1px solid #ffb7b7; background: white;
+            color: #d63384; border-radius: 30px; cursor: pointer;
+            transition: all 0.3s ease; font-size: 1rem;
+        }
+        button:hover { background: #ffb7b7; color: white; transform: translateY(-2px); }
+        .hidden { display: none; }
+        .title { color: #d63384; font-size: 2.5rem; margin-bottom: 0.5rem; animation: fadeIn 2s ease; }
+        .subtitle { color: #d63384; font-size: 1.8rem; margin-bottom: 1rem; }
+        .message { line-height: 1.6; font-size: 1.2rem; animation: fadeIn 3s ease; }
+        .heart { position: fixed; top: -10px; font-size: 20px; user-select: none; pointer-events: none; z-index: 999; animation: fall linear forwards; }
+        @keyframes fall { to { transform: translateY(105vh) rotate(360deg); } }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div id="quiz-container">
+            <h2 id="question">Carregando pergunta...</h2>
+            <div id="options" class="options-grid"></div>
+        </div>
+
+        <div id="final-message" class="hidden">
+            <h1 class="title">Feliz Dia da Mulher!</h1>
+            <h2 class="subtitle">Eu te amo, Giovanna ❤️</h2>
+            <div class="message">
+                Você é a mulher mais incrível que eu conheço. <br>
+                Sua força e doçura iluminam minha vida todos os dias cada vez mais! <br><br>
+                <strong>Minha pitchuquinha</strong>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const questions = [
+            {
+                question: "Qual é a coisa que eu mais admiro em você?",
+                options: ["Sua inteligência", "Seu sorriso", "Sua determinação", "Tudo isso e muito mais"],
+                answer: 3
+            },
+            {
+                question: "Quem é a mulher mais linda desse mundo todinho?",
+                options: ["Uma modelo famosa", "A vizinha", "Você, obviamente", "Não sei"],
+                answer: 2
+            },
+            {
+                question: "Como você me faz sentir todos os dias?",
+                options: ["O homem mais sortudo", "Normal", "Cansado", "Feliz"],
+                answer: 0
+            },
+            // --- Novas páginas de quiz ---
+            {
+                question: "O que eu mais quero construir ao seu lado?",
+                options: ["Uma casa bonita", "Viagens inesquecíveis", "Um futuro cheio de amor", "Tudo o que sonharmos"],
+                answer: 3
+            },
+            {
+                question: "Qual o tamanho do meu amor por você?",
+                options: ["Daqui até a lua", "Infinito", "Não dá pra medir", "Todas as opções acima!"],
+                answer: 3
+            }
+        ];
+
+        let currentQuestion = 0;
+        const questionEl = document.getElementById('question');
+        const optionsEl = document.getElementById('options');
+        const quizContainer = document.getElementById('quiz-container');
+        const finalMessage = document.getElementById('final-message');
+
+        function loadQuestion() {
+            const q = questions[currentQuestion];
+            questionEl.innerText = q.question;
+            optionsEl.innerHTML = '';
+            
+            q.options.forEach((opt, index) => {
+                const btn = document.createElement('button');
+                btn.innerText = opt;
+                btn.onclick = () => checkAnswer(index);
+                optionsEl.appendChild(btn);
+            });
+        }
+
+        function checkAnswer(index) {
+            if (index === questions[currentQuestion].answer) {
+                currentQuestion++;
+                if (currentQuestion < questions.length) {
+                    loadQuestion();
+                } else {
+                    showFinal();
+                }
+            } else {
+                alert("Tente de novo, eu sei que você sabe a resposta certa! ❤️");
+            }
+        }
+
+        function showFinal() {
+            quizContainer.classList.add('hidden');
+            finalMessage.classList.remove('hidden');
+            startHeartRain();
+        }
+
+        function startHeartRain() {
+            setInterval(() => {
+                const heart = document.createElement('div');
+                heart.classList.add('heart');
+                heart.innerText = '❤️';
+                heart.style.left = Math.random() * 100 + 'vw';
+                heart.style.animationDuration = Math.random() * 3 + 2 + 's';
+                heart.style.opacity = Math.random();
+                document.body.appendChild(heart);
+                setTimeout(() => { heart.remove(); }, 5000);
+            }, 300);
+        }
+
+        loadQuestion();
+    </script>
+</body>
+</html>
